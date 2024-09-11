@@ -1,4 +1,4 @@
-# week_5_ecenur
+# social_media_app
 
 A new Flutter project.
 
