@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+
+import '../../model/user_model/user_model.dart';
 
 class ApiClient {
   String baseUrl = "https://jsonplaceholder.typicode.com/";
@@ -18,6 +22,19 @@ class ApiClient {
           'Failed request with status: ${response.statusCode}.'); //Burada null yerine bir exception fırlattık.
     } else {
       return response;
+    }
+  }
+
+  Future<List<UserModel>> getUsersFromApi() async {
+    final response = await httpClient
+        .get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+
+    if (response.statusCode == 200) {
+      List jsonData = json.decode(response.body);
+      Logger().i(jsonData);
+      return jsonData.map((user) => UserModel.fromJson(user)).toList();
+    } else {
+      throw Exception('Failed to load users');
     }
   }
 }
