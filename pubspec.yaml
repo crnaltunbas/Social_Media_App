@@ -40,6 +40,8 @@ dependencies:
   json_annotation: ^4.3.0
   provider: ^6.1.2
 
+  persistent_bottom_nav_bar: ^6.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,10 +82,50 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: nunito-black
+      fonts:
+        - asset: assets/font/Nunito-Black.ttf
+
+    - family: nunito-black-italic
+      fonts:
+        - asset: assets/font/Nunito-BlackItalic.ttf
+
+    - family: nunito-bold
+      fonts:
+        - asset: assets/font/Nunito-Bold.ttf
+
+    - family: nunito-extra-light
+      fonts:
+        - asset: assets/font/Nunito-ExtraLight.ttf
+
+    - family: nunito-italic
+      fonts:
+        - asset: assets/font/Nunito-Italic.ttf
+
+    - family: nunito-light
+      fonts:
+        - asset: assets/font/Nunito-Light.ttf
+
+    - family: nunito-light-italic
+      fonts:
+        - asset: assets/font/Nunito-LightItalic.ttf
+
+    - family: nunito-medium
+      fonts:
+        - asset: assets/font/Nunito-Medium.ttf
+
+    - family: nunito-medium-italic
+      fonts:
+        - asset: assets/font/Nunito-MediumItalic.ttf
+
+    - family: nunito-regular
+      fonts:
+        - asset: assets/font/Nunito-Regular.ttf
+
+    - family: nunito-semibold
+      fonts:
+        - asset: assets/font/Nunito-SemiBold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
