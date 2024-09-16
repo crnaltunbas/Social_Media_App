@@ -16,9 +16,10 @@ class CommentController extends ChangeNotifier {
     await getAllComments();
   }
 
+
   List<CommentModel> _comments = [];
   bool isLoading = false;
-  String? _errorMessage;
+  String?  _errorMessage;
 
   List<CommentModel> get comments => _comments;
   bool get loading => isLoading;

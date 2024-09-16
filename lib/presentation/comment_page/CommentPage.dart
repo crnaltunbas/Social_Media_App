@@ -36,12 +36,13 @@ class _CommentPageState extends State<CommentPage> {
                   }),
             );
           } else {
-            List<CommentModel> comments = [];
+
             return Scaffold(
               backgroundColor: SocialMediaAppColors.white,
               body: ListView.builder(
-                itemCount: comments.length,
+                itemCount: controller.comments.length,
                 itemBuilder: (context, index) {
+                  final CommentModel comment = controller.comments[index];
                   return Card(
                       color: SocialMediaAppColors.fifthColorLightest,
                       margin: const EdgeInsets.symmetric(
@@ -52,7 +53,7 @@ class _CommentPageState extends State<CommentPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                (comments[index].name).toString(),
+                                (comment.name).toString(),
                                 style: const TextStyle(
                                     color: SocialMediaAppColors.thirdColor,
                                     fontFamily: Fonts.nunitoBold,
@@ -60,12 +61,12 @@ class _CommentPageState extends State<CommentPage> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                (comments[index].email).toString(),
+                                (comment.email).toString(),
                                 style: const TextStyle(
                                     color: SocialMediaAppColors.thirdColor),
                               ),
                               const SizedBox(height: 8),
-                              Text(comments[index].body.toString()),
+                              Text(comment.body.toString()),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
