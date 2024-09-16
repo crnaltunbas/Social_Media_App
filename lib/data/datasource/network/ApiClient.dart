@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
+import '../../model/CommentModel/CommentModel.dart';
 import '../../model/user_model/user_model.dart';
 
 class ApiClient {
   String baseUrl = "https://jsonplaceholder.typicode.com/";
   String endpoint = "";
-  var httpClient;
+  final http.Client httpClient;
   final Logger logger =
       Logger(); // Logger'ı burada tanımladık her çağrıda yeni bir logger nesnesi oluşturmayalım diye
 
@@ -25,6 +26,7 @@ class ApiClient {
     }
   }
 
+
   Future<List<UserModel>> getUsersFromApi() async {
     final response = await httpClient
         .get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
@@ -37,4 +39,18 @@ class ApiClient {
       throw Exception('Failed to load users');
     }
   }
+
+
+  Future<List<CommentModel>> getAllComments() async{
+    final response = await httpClient.get(Uri.parse('https://jsonplaceholder.typicode.com/comments') );
+
+    if(response.statusCode == 200){
+      List  jsonData = json.decode(response.body);
+      Logger().i(jsonData);
+      return jsonData.map((comment) => CommentModel.fromJson(comment)).toList();
+    }else{
+      throw Exception('Failed request with status : ${response.statusCode}.');
+    }
+  }
+
 }

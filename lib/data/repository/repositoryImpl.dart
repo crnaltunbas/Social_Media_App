@@ -23,19 +23,14 @@ class RepositoryImpl implements Repository {
     }
   }
 
-  @override
-  Future<List<CommentModel>> getAllComments() async{
-    final response = await _apiClient.get(Uri.parse('https://jsonplaceholder.typicode.com/comments') as String);
-    if(response!.statusCode == 200){
-      List <dynamic> jsonData = json.decode(response.body);
-      return jsonData.map((comment) => CommentModel.fromJson(comment)).toList();
-    }else{
-      throw Exception('Failed request with status : ${response.statusCode}.');
-    }
-  }
 
   @override
   Future<List<UserModel>> getAllUsers() {
     return _apiClient.getUsersFromApi();
+  }
+
+  @override
+  Future<List<CommentModel>> getAllComments() {
+    return _apiClient.getAllComments();
   }
 }

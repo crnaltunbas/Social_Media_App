@@ -14,7 +14,7 @@ enum AppPageType {
   ),
   commentsPage(
     title: "Comments",
-    icon: Icons.pending,
+    icon: Icons.comment,
     page: CommentPage(),
   ),
   albumsPage(
