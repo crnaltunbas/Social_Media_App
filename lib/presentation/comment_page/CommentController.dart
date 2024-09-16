@@ -3,36 +3,41 @@ import 'package:http/http.dart' as http;
 import 'package:social_media_app/data/model/CommentModel/CommentModel.dart';
 import 'package:social_media_app/data/repository/repositoryImpl.dart';
 import '../../../data/datasource/network/ApiClient.dart';
-import '../../../data/repository/CommentRepository/CommentRepository.dart';
+
 
 class CommentController extends ChangeNotifier {
   late ApiClient apiClient;
-  late Repository _repository;
+  late RepositoryImpl repositoryImpl;
   late http.Client client;
   init() async {
     client = http.Client();
     apiClient = ApiClient(httpClient: client);
-    _repository = RepositoryImpl(apiClient) as Repository;
-    await fetchComments();
+    repositoryImpl = RepositoryImpl(apiClient);
+    await getAllComments();
   }
 
   List<CommentModel> _comments = [];
   bool isLoading = false;
+  String? _errorMessage;
 
-  List<CommentModel> get todos => _comments;
+  List<CommentModel> get comments => _comments;
   bool get loading => isLoading;
+  String? get errorMessage => _errorMessage;
 
-  Future<void> fetchComments() async {
+
+
+  Future<void> getAllComments() async {
     isLoading = true;
     notifyListeners();
-    await _repository.getAllComments().then((value) {
-      _comments = value;
+
+    try {
+      _comments = await repositoryImpl.getAllComments();
+      _errorMessage = null ;
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
       isLoading = false;
       notifyListeners();
-      return value;
-    }).catchError((e) {
-      isLoading = false;
-      notifyListeners();
-    });
+    }
   }
 }

@@ -25,3 +25,4 @@ class CommentModel {
 
   Map<String, dynamic> toJson() => _$CommentModelToJson(this);
 }
+

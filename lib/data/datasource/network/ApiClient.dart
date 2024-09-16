@@ -8,7 +8,7 @@ import '../../model/user_model/user_model.dart';
 class ApiClient {
   String baseUrl = "https://jsonplaceholder.typicode.com/";
   String endpoint = "";
-  final http.Client httpClient;
+  var httpClient;
   final Logger logger =
       Logger(); // Logger'ı burada tanımladık her çağrıda yeni bir logger nesnesi oluşturmayalım diye
 
