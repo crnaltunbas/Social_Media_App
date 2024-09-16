@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media_app/assets/fonts.dart';
 import 'package:social_media_app/presentation/todo_page/todo_controller.dart';
 
 import '../../assets/colors.dart';
+import '../../data/model/todo_model/todo_model.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
@@ -12,6 +14,7 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
+  final TextEditingController _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -47,31 +50,65 @@ class _TodoPageState extends State<TodoPage> {
                   vertical: 10,
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const Text(
+                      "Todos",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: SocialMediaAppColors.thirdColorDarkest,
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: controller.todos.length,
                         itemBuilder: (BuildContext context, int index) {
                           final todo = controller.todos[index];
-                          return Card(
-                            color: theme.colorScheme.secondary,
+                          String title = "${todo.title![0].toUpperCase()}${todo.title!.substring(1)}.";
+                          return Column(
+                            children: [
+                            Card(
+                            color: SocialMediaAppColors.primaryColorLightest,
+                            // surfaceTintColor: SocialMediaAppColors.primaryColorLightest,
                             elevation: 5,
                             child: Container(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
+                              padding: const EdgeInsets.all(15),
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "Title: ${todo.title}",
-                                    style: theme.textTheme.titleLarge,
+                                  Checkbox(
+                                    value: todo.completed,
+                                    onChanged: (bool? value) {
+                                      // Handle checkbox change if needed
+                                    },
+                                    shape: CircleBorder(),
+                                    checkColor: SocialMediaAppColors.white,
+                                    activeColor: SocialMediaAppColors.thirdColorDarkest,
                                   ),
-                                  Text(
-                                    "Completed: ${todo.completed}",
-                                    style: theme.textTheme.titleMedium,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          title,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: Fonts.nunitoMedium,
+                                            color: SocialMediaAppColors.linearBlack,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
+
                             ),
+                          ),
+                          SizedBox(height: 10),
+                            ],
                           );
                         },
                       ),

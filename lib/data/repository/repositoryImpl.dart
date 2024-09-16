@@ -27,4 +27,5 @@ class RepositoryImpl implements Repository {
   Future<List<UserModel>> getAllUsers() {
     return _apiClient.getUsersFromApi();
   }
+
 }
