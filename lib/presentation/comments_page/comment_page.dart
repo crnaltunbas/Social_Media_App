@@ -2,33 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_app/assets/colors.dart';
 import 'package:social_media_app/data/model/CommentModel/CommentModel.dart';
-import 'package:social_media_app/presentation/comment_page/CommentController.dart';
+import 'package:social_media_app/presentation/comments_page/comment_controller.dart';
 import '../../assets/dimens.dart';
 import '../../assets/fonts.dart';
 
 
-class CommentPage extends StatefulWidget {
-  const CommentPage({super.key});
+class CommentsPage extends StatefulWidget {
+  const CommentsPage({super.key});
 
   @override
-  State<CommentPage> createState() => _CommentPageState();
+  State<CommentsPage> createState() => _CommentsPageState();
 }
 
-class _CommentPageState extends State<CommentPage> {
+class _CommentsPageState extends State<CommentsPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (context) => CommentController()..init(),
-        child: Consumer<CommentController>(builder: (context, controller, child) {
+        child:
+            Consumer<CommentController>(builder: (context, controller, child) {
           if (controller.isLoading) {
-            return const Scaffold(
+             return const Scaffold(
               backgroundColor: SocialMediaAppColors.white,
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (controller.errorMessage != null) {
-            return Center(child: Text('Error: ${controller.errorMessage}'));
+             return Center(child: Text('Error: ${controller.errorMessage}'));
           } else if (controller.comments.isEmpty) {
-            return Center(
+             return Center(
               child: InkWell(
                   child: const Text("No users found"),
                   onTap: () {
@@ -36,8 +37,7 @@ class _CommentPageState extends State<CommentPage> {
                   }),
             );
           } else {
-
-            return Scaffold(
+             return Scaffold(
               backgroundColor: SocialMediaAppColors.white,
               body: ListView.builder(
                 itemCount: controller.comments.length,
@@ -73,11 +73,40 @@ class _CommentPageState extends State<CommentPage> {
                                 children: <Widget>[
                                   FloatingActionButton(
                                     onPressed: () {
-                                      const Icon(Icons.refresh_rounded);
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            TextEditingController
+                                                editController =
+                                                TextEditingController();
+                                            editController.text = comment.body!;
+                                            return AlertDialog(
+                                              title: const Text("Düzenle"),
+                                              content: TextField(
+                                                controller: editController,
+                                                maxLines: 10,
+                                              ),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('İptal'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: const Text('Kaydet'),
+                                                  onPressed: () {               //// BURAYI NASIL UPDATE EDİCEM ???
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                )
+                                              ],
+                                            );
+                                          });
+                                      const Icon(Icons.edit);
                                     },
                                   ),
-                                  FloatingActionButton(onPressed: (){
-                                    const Icon(Icons.favorite_outline_rounded);
+                                  FloatingActionButton(onPressed: () {   // burayı nasıl animasyonlaştırıcaz
+                                    const Icon(Icons.favorite);
                                   })
                                 ],
                               ),

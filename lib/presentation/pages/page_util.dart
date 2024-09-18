@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../albums_page/albums_page.dart';
-import '../comment_page/CommentPage.dart';
+import '../comments_page/comment_page.dart';
 import '../photos_page/photos_page.dart';
 import '../posts_page/posts_page.dart';
 import '../todo_page/todo_page.dart';
@@ -15,7 +15,7 @@ enum AppPageType {
   commentsPage(
     title: "Comments",
     icon: Icons.comment,
-    page: CommentPage(),
+    page: CommentsPage(),
   ),
   albumsPage(
     title: "Albums",
