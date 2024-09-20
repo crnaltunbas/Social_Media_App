@@ -4,6 +4,7 @@ import 'package:social_media_app/data/model/todo_model/todo_model.dart';
 
 import '../../domain/repository/repository.dart';
 import '../datasource/network/ApiClient.dart';
+import '../model/posts_model/posts_model.dart';
 import '../model/user_model/user_model.dart';
 
 class RepositoryImpl implements Repository {
@@ -26,5 +27,16 @@ class RepositoryImpl implements Repository {
   @override
   Future<List<UserModel>> getAllUsers() {
     return _apiClient.getUsersFromApi();
+  }
+
+  @override
+  Future<List<PostModel>> getAllPosts() async {
+    final response = await _apiClient.get("posts");
+    if (response!.statusCode == 200) {
+      List jsonData = json.decode(response.body);
+      return jsonData.map((post) => PostModel.fromJson(post)).toList();
+    } else {
+      throw Exception('Failed to load posts');
+    }
   }
 }
