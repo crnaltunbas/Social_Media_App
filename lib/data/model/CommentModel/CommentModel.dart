@@ -12,6 +12,11 @@ class CommentModel {
   String? name;
   String? email;
   String? body;
+  @JsonKey(ignore: true)
+  bool isFavorite = false;
+  @JsonKey(ignore:  true)
+  int favoriteCount = 0;
+
 
   CommentModel({
     this.postId,
