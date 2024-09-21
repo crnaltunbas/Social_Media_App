@@ -1,12 +1,3 @@
-import 'dart:convert';
-
-import 'package:social_media_app/data/model/todo_model/todo_model.dart';
-
-import '../../domain/repository/repository.dart';
-import '../datasource/network/ApiClient.dart';
-import '../model/posts_model/posts_model.dart';
-import '../model/user_model/user_model.dart';
-
 class RepositoryImpl implements Repository {
   final ApiClient _apiClient;
 
@@ -17,7 +8,6 @@ class RepositoryImpl implements Repository {
     final response = await _apiClient.get("todos");
     if (response!.statusCode == 200) {
       List jsonData = json.decode(response!.body);
-      //Logger().i(jsonData);
       return jsonData.map((todo) => TodoModel.fromJson(todo)).toList();
     } else {
       throw Exception('Failed to load todos');
@@ -29,6 +19,7 @@ class RepositoryImpl implements Repository {
     return _apiClient.getUsersFromApi();
   }
 
+  // Burada her iki kod parçasını birleştiriyorum
   @override
   Future<List<PostModel>> getAllPosts() async {
     final response = await _apiClient.get("posts");
@@ -40,3 +31,4 @@ class RepositoryImpl implements Repository {
     }
   }
 }
+
