@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
+import '../../model/posts_model/posts_model.dart';
 import '../../model/user_model/user_model.dart';
 
 class ApiClient {
@@ -35,6 +36,18 @@ class ApiClient {
       return jsonData.map((user) => UserModel.fromJson(user)).toList();
     } else {
       throw Exception('Failed to load users');
+    }
+  }
+
+  // Post'ları API'den çekmek için metod
+  Future<List<PostModel>> getPostsFromApi() async {
+    final response = await httpClient.get(Uri.parse('${baseUrl}posts'));
+    if (response.statusCode == 200) {
+      List jsonData = json.decode(response.body);
+      logger.i(jsonData);
+      return jsonData.map((post) => PostModel.fromJson(post)).toList();
+    } else {
+      throw Exception('Failed to load posts');
     }
   }
 }

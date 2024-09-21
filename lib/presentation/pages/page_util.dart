@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../albums_page/albums_page.dart';
 import '../comments_page/comments_page.dart';
 import '../photos_page/photos_page.dart';
-import '../posts_page/posts_page.dart';
+import '../posts_page/post_page.dart';
 import '../todo_page/todo_page.dart';
 import '../user_page/user_page.dart';
 
@@ -11,7 +11,7 @@ enum AppPageType {
   postsPage(
     title: "Posts",
     icon: Icons.home_filled, // İkon burada belirleniyor
-    page: PostsPage(),
+    page: PostPage(),
   ),
   commentsPage(
     title: "Comments",
