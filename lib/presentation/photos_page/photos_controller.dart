@@ -21,13 +21,13 @@ class PhotosController extends ChangeNotifier {
   List<PhotosModel> _photos = [];
   bool isLoading = false;
 
-  List<PhotosModel> get todos => _photos;
+  List<PhotosModel> get photos => _photos;
   bool get loading => isLoading;
 
   Future<void> fetchPhotos() async {
     var isLoading = true;
     notifyListeners();
-    await _repository.getAllTodos().then((value) {
+    await _repository.getAllPhotos().then((value) {
       _photos = value.cast<PhotosModel>();
       isLoading = false;
       notifyListeners();
