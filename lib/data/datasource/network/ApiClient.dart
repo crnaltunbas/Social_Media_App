@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 import '../../model/posts_model/posts_model.dart';
+import '../../model/CommentModel/CommentModel.dart';
 import '../../model/user_model/user_model.dart';
 
 class ApiClient {
@@ -25,6 +26,7 @@ class ApiClient {
       return response;
     }
   }
+
 
   Future<List<UserModel>> getUsersFromApi() async {
     final response = await httpClient
@@ -50,4 +52,18 @@ class ApiClient {
       throw Exception('Failed to load posts');
     }
   }
+
+
+  Future<List<CommentModel>> getAllComments() async{
+    final response = await httpClient.get(Uri.parse('https://jsonplaceholder.typicode.com/comments') );
+
+    if(response.statusCode == 200){
+      List  jsonData = json.decode(response.body);
+      Logger().i(jsonData);
+      return jsonData.map((comment) => CommentModel.fromJson(comment)).toList();
+    }else{
+      throw Exception('Failed request with status : ${response.statusCode}.');
+    }
+  }
+
 }

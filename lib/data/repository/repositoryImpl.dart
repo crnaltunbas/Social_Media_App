@@ -6,7 +6,8 @@ import 'package:social_media_app/data/model/todo_model/todo_model.dart';
 import '../../domain/repository/repository.dart';
 import '../datasource/network/ApiClient.dart';
 import '../model/user_model/user_model.dart';
-
+import '../model/CommentModel/CommentModel.dart';
+import 'package:social_media_app/data/datasource/network/ApiClient.dart';
 
 class RepositoryImpl implements Repository {
   final ApiClient _apiClient;
@@ -17,11 +18,14 @@ class RepositoryImpl implements Repository {
   Future<List<TodoModel>> getAllTodos() async {
     final response = await _apiClient.get("todos");
     if (response!.statusCode == 200) {
+      List jsonData = json.decode(response!.body);
+      //Logger().i(jsonData);
       return jsonData.map((todo) => TodoModel.fromJson(todo)).toList();
     } else {
       throw Exception('Failed to load todos');
     }
   }
+
 
   @override
   Future<List<UserModel>> getAllUsers() {
@@ -51,6 +55,11 @@ class RepositoryImpl implements Repository {
     } else {
       throw Exception('Failed to load posts');
     }
+  }
+
+  @override
+  Future<List<CommentModel>> getAllComments() {
+    return _apiClient.getAllComments();
   }
 }
 
