@@ -22,4 +22,4 @@ Ceren Altunbaş (Comments Page)
 
 
 Uygulamamız, Android Studio, Visual Studio IDE'leri kullanılarak yapılan Flutter projesidir. 6 sayfadan oluşup Splash screen ile uygulamaya giriş sağlanmıştır. 
-Api olarak  ' https://jsonplaceholder.typicode.com/ ' kullanılmıştır.
+Api olarak  ' https://jsonplaceholder.typicode.com/ ' ve 'https://rapidapi.com/eimaam/api/get-quotes-api ' kullanılmıştır.
